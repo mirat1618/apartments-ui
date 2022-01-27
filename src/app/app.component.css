@@ -4,15 +4,11 @@
     flex-wrap: wrap;
 }
 
-.header {
-    display: flex;
-    background-color: darkcyan;
-    min-height: 100px;
-}
-
 .content {
     display: flex;
     flex-flow: column;
     flex-wrap: wrap;
     flex: 1;
+    padding: 0 15px;
+    align-items: center;
 }

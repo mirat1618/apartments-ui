@@ -1,0 +1,7 @@
+mat-card {
+    margin: 25px;
+}
+
+mat-card button {
+    text-transform: uppercase;
+}
