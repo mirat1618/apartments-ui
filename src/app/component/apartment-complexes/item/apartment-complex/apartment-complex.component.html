@@ -1,2 +1,31 @@
-<p>apartment-complex works!</p>
-{{this.apartmentComplexId}}
+<mat-progress-bar mode="indeterminate" *ngIf="!isLoaded"></mat-progress-bar>
+
+
+<div *ngIf="isLoaded">
+    <mat-card>
+        <button mat-button color="primary" (click)="back()">
+                <mat-icon>arrow_back</mat-icon>
+        </button>
+    </mat-card>
+
+    <div class="content">
+        <mat-card>    
+            <mat-card-header>
+                <img mat-card-avatar src="{{apartmentComplex.imageUrl}}"/>
+                <mat-card-title>{{apartmentComplex.title}}</mat-card-title>
+                <mat-card-subtitle>{{apartmentComplex.address}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <img mat-card-image src="{{apartmentComplex.imageUrl}}"/>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button color="primary"><mat-icon>edit</mat-icon></button>
+                <button mat-button color="primary"><mat-icon>delete</mat-icon></button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    
+    <app-apartment-list [apartments]=apartmentComplex.apartments>
+    </app-apartment-list>
+</div>
+

@@ -12,6 +12,7 @@ export class ApartmentComplexListComponent implements OnInit {
   public apartmentComplexes : ApartmentComplex[] = [];
   private httpClient : HttpClient;
   private router : Router;
+  public isLoaded : boolean = false;
 
   constructor(httpClient : HttpClient, router : Router) {
     this.httpClient = httpClient;
@@ -25,14 +26,15 @@ export class ApartmentComplexListComponent implements OnInit {
   private getApartmentComplexes() {
     this.httpClient.get<ApartmentComplex[]>('http://apartments-backend-api.herokuapp.com/apartment-complexes').subscribe(
       response => {
-        console.log(response);
         this.apartmentComplexes = response;
+        this.isLoaded = true;
+        console.log(response);
       }
     )
   }
 
   public viewApartmentComplex(id : number) {
-      this.router.navigateByUrl(`/apartment-complexes/${id}`);
+      this.router.navigate(['/apartment-complexes', id]);
   }
 
 }

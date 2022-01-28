@@ -1,12 +1,7 @@
-mat-card {
-    margin: 25px;
-}
-
-.content {
+.content-table {
     display: flex;
     flex-flow: column;
     flex-wrap: wrap;
     flex: 1;
     padding: 0 15px;
-    align-items: center;
 }

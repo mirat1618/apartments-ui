@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ApartmentComponent } from './component/apartment/apartment.component';
+import { ApartmentComponent } from './component/apartment/item/apartment.component';
 import { ApartmentComplexListComponent } from './component/apartment-complexes/list/apartment-complex-list.component';
 import { ApartmentComplexComponent } from './component/apartment-complexes/item/apartment-complex/apartment-complex.component';
 

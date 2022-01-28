@@ -5,3 +5,16 @@ mat-card {
 mat-card button {
     text-transform: uppercase;
 }
+
+.add-button {
+    text-align: center;
+}
+
+.content-container{
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    padding: 0 15px;
+    align-items: center;
+}
+
