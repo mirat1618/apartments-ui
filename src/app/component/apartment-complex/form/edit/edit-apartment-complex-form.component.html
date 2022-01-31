@@ -1,0 +1,45 @@
+<!-- <p>edit-apartment-complex-form works!</p> -->
+
+<h1 mat-dialog-title>Редактировать жилой комплекс</h1>
+
+<!-- {{data.apartmentComplex.id}}
+{{data.apartmentComplex.title}}
+{{data.apartmentComplex.address}} --> 
+ 
+<form [formGroup]="apartmentComplexForm" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content>
+
+        <input type="hidden" formControlName="id">
+
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Название</mat-label>
+                <input #titleField matInput formControlName="title" (keyup)="trimSpaces($event)">
+                <mat-error *ngIf="apartmentComplexForm.controls['title'].invalid">5 символов минимум, буквы</mat-error>
+            </mat-form-field>
+        </p>
+        
+        <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Адрес</mat-label>
+            <input #addressField matInput formControlName="address" (keyup)="trimSpaces($event)">
+            <mat-error *ngIf="apartmentComplexForm.controls['address'].invalid">10 символов минимум</mat-error>
+        </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Адрес изображения</mat-label>
+                <input matInput formControlName="imageUrl" [readonly]="true">
+            </mat-form-field>
+        </p>
+
+        
+        
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-button [mat-dialog-close]="true">Закрыть</button>
+        <button type="submit" [mat-dialog-close] mat-raised-button color="primary" [disabled]="apartmentComplexForm.invalid">Редактировать</button>
+    </div>
+</form>
+

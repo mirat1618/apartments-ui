@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApartmentComponent } from './component/apartment/item/apartment.component';
-import { ApartmentComplexListComponent } from './component/apartment-complexes/list/apartment-complex-list.component';
-import { ApartmentComplexComponent } from './component/apartment-complexes/item/apartment-complex/apartment-complex.component';
+import { ApartmentComplexListComponent } from './component/apartment-complex/list/apartment-complex-list.component';
+import { ApartmentComplexComponent } from './component/apartment-complex/item/apartment-complex.component';
 
 const routes: Routes = [
   { path : "", component: ApartmentComplexListComponent },

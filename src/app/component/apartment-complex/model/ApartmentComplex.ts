@@ -1,4 +1,4 @@
-import { Apartment } from "src/app/component/apartment/item/Apartment";
+import { Apartment } from "src/app/component/apartment/model/Apartment";
 
 export class ApartmentComplex {
 

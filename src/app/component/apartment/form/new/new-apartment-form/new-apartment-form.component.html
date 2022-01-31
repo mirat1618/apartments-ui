@@ -1,0 +1,75 @@
+<!-- <p>new-apartment-form works!</p> -->
+<h1 mat-dialog-title>Добавить квартиру</h1>
+
+<form [formGroup]="apartmentForm" (ngSubmit)="onSubmit()">
+
+    <input type="hidden" formControlName="apartmentComplex">
+
+    <div mat-dialog-content>
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Номер квартиры</mat-label>
+                <input matInput formControlName="number" (keyup)="trimNonDigits($event)">
+                <mat-error *ngIf="apartmentForm.controls['number'].invalid">Целое число, начиная с единицы</mat-error>
+            </mat-form-field>
+        </p>
+        
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Этаж</mat-label>
+                <input matInput formControlName="floor" (keyup)="trimNonDigits($event)">
+                <mat-error *ngIf="apartmentForm.controls['floor'].invalid">Целое отрицательное или положительое число</mat-error>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Количество комнат</mat-label>
+                <input matInput formControlName="numberOfBedrooms" (keyup)="trimNonDigits($event)">
+                <mat-error *ngIf="apartmentForm.controls['numberOfBedrooms'].invalid">Целое число, начиная с нуля</mat-error>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Площадь</mat-label>
+                <input matInput formControlName="squareMeters" (keyup)="trimNonDigits($event)">
+                <mat-error *ngIf="apartmentForm.controls['squareMeters'].invalid">Целое число, начиная с нуля</mat-error>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <!-- <mat-form-field appearance="fill"> -->
+                <!-- <mat-label>Стиральная машина</mat-label> -->
+                <!-- <mat-checkbox formControlName="hasWashingMachine">Стиральная машина</mat-checkbox> -->
+                <!-- <input type="checkbox" mat-checkbox formControlName="hasWashingMachine">Стиральная машина -->
+                <mat-checkbox formControlName="hasWashingMachine">
+                    <!-- <input type="checkbox" formControlName="hasWashingMachine"> -->
+                    Стиральная машина
+                </mat-checkbox>  
+                <!-- <input #addressField matInput formControlName="hasWashingMachine">
+                <mat-error *ngIf="apartmentForm.controls['hasWashingMachine'].invalid">10 символов минимум</mat-error> -->
+            <!-- </mat-form-field> -->
+        </p>
+
+        <p>
+            <mat-checkbox formControlName="hasDiswasher">
+                <!-- <input type="checkbox" formControlName="hasDiswasher"> -->
+                Посудомойка 
+            </mat-checkbox>         
+        </p>
+
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Цена аренды (₽/месяц)</mat-label>
+                <input matInput formControlName="rentPrice" (keyup)="trimNonDigits($event)">
+                <mat-error *ngIf="apartmentForm.controls['rentPrice'].invalid">Целое число, начиная с нуля</mat-error>
+            </mat-form-field>
+        </p> 
+        
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-button [mat-dialog-close]="true">Закрыть</button>
+        <button type="submit" [mat-dialog-close] mat-raised-button color="primary" [disabled]="apartmentForm.invalid">Добавить</button>
+    </div>
+</form>

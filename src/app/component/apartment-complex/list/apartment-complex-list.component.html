@@ -1,0 +1,37 @@
+
+<div *ngIf="!isLoaded" class="content-container">
+    <mat-spinner></mat-spinner>
+    <mat-card class="mat-h1">
+            Первоначальная загрузка может занять время, так как Heroku при долгом отсутствии запросов переводит сервис API в сон
+    </mat-card>
+</div>
+
+
+<div class="content-container">
+    <div *ngIf="isLoaded">
+        <!-- <mat-card  *ngFor="let apartmentComplex of apartmentComplexes">       -->
+        <mat-card  *ngFor="let apartmentComplex of (apartmentComplexes$ | async)">      
+            <mat-card-header>
+                <img mat-card-avatar src="{{apartmentComplex.imageUrl}}"/>
+                <mat-card-title>{{apartmentComplex.title}}</mat-card-title>
+                <mat-card-subtitle>{{apartmentComplex.address}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <img mat-card-image src="{{apartmentComplex.imageUrl}}"/>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button color="primary" (click)="viewApartmentComplex(apartmentComplex.id)">Посмотреть квартиры</button>
+                <button mat-button color="primary" (click)="editApartmentComplex(apartmentComplex)"><mat-icon>edit</mat-icon></button>
+                <button mat-button color="primary" (click)="deleteApartmentComplex(apartmentComplex.id)"><mat-icon>delete</mat-icon></button>
+            </mat-card-actions>
+        </mat-card>
+        <mat-card class="add-button">
+            <button mat-fab mat-button color="primary" (click)="createNewApartmentComplex()"><mat-icon>add</mat-icon></button>
+        </mat-card>
+    </div>
+</div>
+
+
+
+
+
