@@ -15,6 +15,11 @@ export class ApartmentComplexService {
   public apartmentComplexes$ = this._apartmentComplexes.asObservable();
   public apartmentComplexes: ApartmentComplex[] = [];
 
+  private _apartmentComplex = new Subject<ApartmentComplex>();
+  public apartmentComplex$ = this._apartmentComplex.asObservable();
+  public apartmentComplex : ApartmentComplex = new ApartmentComplex(0, '', '', '', []);
+
+
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
     this._apartmentComplexes.next(Object.assign([], this._apartmentComplexes));
@@ -25,10 +30,16 @@ export class ApartmentComplexService {
     })
   }
 
- 
-
   public getApartmentComplex(id: number): Observable<ApartmentComplex> {
     return this.httpClient.get<ApartmentComplex>(this.baseUrl + id);
+  }
+
+  public setApartmentComplexObservable(id: number): Observable<ApartmentComplex> {
+    this.httpClient.get<ApartmentComplex>(this.baseUrl + id).subscribe(resp => {
+      this.apartmentComplex = resp;
+      this._apartmentComplex.next(this.apartmentComplex);
+    });
+    return this.apartmentComplex$;
   }
 
   public createApartmentComplex(formValues: string): void {
@@ -73,17 +84,19 @@ export class ApartmentComplexService {
     console.log(this.apartmentComplexes);
   }
 
-  public addApartment(id: number, formValues: string): ApartmentComplex {
-    let apartmentComplex = new ApartmentComplex(0, '', '', '', []);
+  public addApartment(id: number, formValues: string): void {  
     this.httpClient.post<ApartmentComplex>(this.baseUrl + id, formValues).subscribe(resp => {
+      this.apartmentComplex = resp;
+      this._apartmentComplex.next(this.apartmentComplex);
       console.log(resp);
-      apartmentComplex = resp;
     });
-    return apartmentComplex;
   }
 
   public deleteApartment(apartmentComplexId: number, apartmentId: number): void {
     this.httpClient.delete<void>(this.baseUrl + `${apartmentComplexId}/apartments/${apartmentId}`).subscribe();
+    console.log(apartmentId);
+    this.apartmentComplex.apartments = this.apartmentComplex.apartments.filter(apartment => apartment.id != apartmentId);
+    this._apartmentComplex.next(this.apartmentComplex);
   }
 }
 

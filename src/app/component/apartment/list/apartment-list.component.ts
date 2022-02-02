@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Apartment } from "src/app/component/apartment/model/Apartment";
 import { MatDialog } from '@angular/material/dialog';
 import { EditApartmentFormComponent } from '../form/edit/edit-apartment-form/edit-apartment-form.component';
-import { HttpClient } from '@angular/common/http';
 import { ApartmentService } from 'src/app/service/apartment.service';
 import { ApartmentComplexService } from 'src/app/service/apartment-complex.service';
+
 
 @Component({
   selector: 'app-apartment-list',
@@ -19,7 +19,6 @@ export class ApartmentListComponent implements OnInit {
   public dialog: MatDialog;
   private apartmentService: ApartmentService;
   private apartmentComplexService: ApartmentComplexService;
-
 
   constructor(dialog: MatDialog, apartmentService: ApartmentService, apartmentComplexService: ApartmentComplexService) {
     this.displayedColumns = ['number', 'floor', 'numberOfBedrooms', 'squareMeters', 'hasWashingMachine', 'hasDishwasher', 'rentPrice', 'edit', 'delete'];
@@ -45,7 +44,9 @@ export class ApartmentListComponent implements OnInit {
     }
 
   public deleteApartment(apartment: Apartment): void {
-    this.apartmentComplexService.deleteApartment(apartment.apartmentComplex, apartment.id);
+    if(confirm("Удалить квартиру?")) {
+      this.apartmentComplexService.deleteApartment(apartment.apartmentComplex, apartment.id);
+    }
   }
 
 }

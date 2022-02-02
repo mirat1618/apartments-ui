@@ -4,6 +4,7 @@ import { ApartmentComplex } from '../model/ApartmentComplex';
 import { ApartmentComplexService } from 'src/app/service/apartment-complex.service';
 import { NewApartmentFormComponent } from '../../apartment/form/new/new-apartment-form/new-apartment-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -20,7 +21,10 @@ export class ApartmentComplexComponent implements OnInit {
   private apartmentComplexService: ApartmentComplexService;
   public dialog: MatDialog;
 
-  public updatedApartmentComplex: ApartmentComplex = new ApartmentComplex(0, '', '', '', []);
+ 
+
+
+  public apartmentComplex$: Observable<ApartmentComplex> = new Observable<ApartmentComplex>();
 
 
   constructor(route: ActivatedRoute, router: Router, apartmentComplexService: ApartmentComplexService, dialog: MatDialog) { 
@@ -34,11 +38,21 @@ export class ApartmentComplexComponent implements OnInit {
   ngOnInit(): void {
     this.isLoaded = false;
 
+    // this.route.params.subscribe(params => {
+    //   this.apartmentComplexService.getApartmentComplex(params['id']).subscribe(data => {
+    //     this.apartmentComplex = data;
+    //     this.isLoaded = true;
+    //   })
+    // });
+
     this.route.params.subscribe(params => {
-      this.apartmentComplexService.getApartmentComplex(params['id']).subscribe(data => {
-        this.apartmentComplex = data;
-        this.isLoaded = true;
-      })
+      this.apartmentComplexService.setApartmentComplexObservable(params['id']);
+    });
+
+    
+    this.apartmentComplexService.apartmentComplex$.subscribe(resp => {
+      this.apartmentComplex = resp;
+      this.isLoaded = true;
     });
   }
 
@@ -53,7 +67,12 @@ export class ApartmentComplexComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog response: ${result}`);
-      this.ngOnInit();
+      // this.ngOnInit();
     });
   }
+
+  public refresh() {
+
+  }
+
 }
