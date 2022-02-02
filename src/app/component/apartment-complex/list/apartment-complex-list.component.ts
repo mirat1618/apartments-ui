@@ -12,31 +12,30 @@ import { Observable } from 'rxjs';
   templateUrl: './apartment-complex-list.component.html',
   styleUrls: ['./apartment-complex-list.component.css']
 })
-
 export class ApartmentComplexListComponent implements OnInit {
-  public dialog : MatDialog;
-  private router : Router;
-  public isLoaded : boolean = false;
-  private apartmentComplexService : ApartmentComplexService;
+  public dialog: MatDialog;
+  private router: Router;
+  public isLoaded: boolean = false;
+  private apartmentComplexService: ApartmentComplexService;
   
   public apartmentComplexes$: Observable<ApartmentComplex[]> = new Observable<ApartmentComplex[]>();
 
-  constructor(router : Router, dialog : MatDialog, apartmentComplexService : ApartmentComplexService) {
+  constructor(router: Router, dialog: MatDialog, apartmentComplexService: ApartmentComplexService) {
     this.router = router;
     this.dialog = dialog;
     this.apartmentComplexService = apartmentComplexService;
    }
-
+ 
   ngOnInit(): void {
     this.apartmentComplexes$ = this.apartmentComplexService.apartmentComplexes$;
     this.isLoaded = true;
   }
 
-  public viewApartmentComplex(id: number) : void {
+  public viewApartmentComplex(id: number): void {
       this.router.navigate(['/apartment-complexes', id]);
   }
 
-  public createNewApartmentComplex() : void {
+  public createNewApartmentComplex(): void {
     const dialogRef = this.dialog.open(NewApartmentComplexFormComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -45,20 +44,19 @@ export class ApartmentComplexListComponent implements OnInit {
     });
   }
 
-  public editApartmentComplex(apartmentComplex: ApartmentComplex) : void {
+  public editApartmentComplex(apartmentComplex: ApartmentComplex): void {
     const dialogRef = this.dialog.open(EditApartmentComplexFormComponent, {
-      data : { apartmentComplex : apartmentComplex }
+      data: { apartmentComplex: apartmentComplex }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+        console.log(`Dialog response: ${result}`);
     })
   }
 
-  public deleteApartmentComplex(apartmentComplexId: number) : void {
+  public deleteApartmentComplex(apartmentComplexId: number): void {
     if(confirm("Удалить жилой комплекс?")) {
       this.apartmentComplexService.deleteApartmentComplex(apartmentComplexId);
     }
   }
-
 }

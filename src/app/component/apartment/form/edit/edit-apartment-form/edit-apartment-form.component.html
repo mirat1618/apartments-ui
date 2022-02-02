@@ -1,7 +1,6 @@
-<h1 mat-dialog-title>Добавить квартиру</h1>
+<h1 mat-dialog-title>Редактировать квартиру</h1>
 
 <form [formGroup]="apartmentForm" (ngSubmit)="onSubmit()">
-
     <div mat-dialog-content>
         <p>
             <mat-form-field appearance="fill">
@@ -42,7 +41,7 @@
         </p>
 
         <p>
-            <mat-checkbox formControlName="hasDiswasher">
+            <mat-checkbox formControlName="hasDishwasher">
                 Посудомойка 
             </mat-checkbox>         
         </p>
@@ -54,10 +53,23 @@
                 <mat-error *ngIf="apartmentForm.controls['rentPrice'].invalid">Число от нуля включительно, одна точка для разделения</mat-error>
             </mat-form-field>
         </p> 
+
+
+        <p formGroupName="apartmentComplex">
+        <!-- <p> -->
+            <mat-form-field appearance="fill">
+                <mat-label>Жилой комплекс</mat-label>
+                <mat-select formControlName="id">
+                    <mat-option *ngFor="let apartmentComplex of this.apartmentComplexes" [value]="apartmentComplex.id">
+                    {{apartmentComplex.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
         
     </div>
     <div mat-dialog-actions align="end">
         <button mat-button [mat-dialog-close]="true">Закрыть</button>
-        <button type="submit" [mat-dialog-close] mat-raised-button color="primary" [disabled]="apartmentForm.invalid">Добавить</button>
+        <button type="submit" [mat-dialog-close] mat-raised-button color="primary" [disabled]="apartmentForm.invalid">Редактировать</button>
     </div>
 </form>

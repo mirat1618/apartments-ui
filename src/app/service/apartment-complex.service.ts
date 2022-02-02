@@ -8,14 +8,14 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 })
 
 export class ApartmentComplexService {
-  private httpClient : HttpClient;
+  private httpClient: HttpClient;
   private baseUrl: string = 'http://apartments-backend-api.herokuapp.com/apartment-complexes/';
   
   private _apartmentComplexes = new BehaviorSubject<ApartmentComplex[]>([]);
   public apartmentComplexes$ = this._apartmentComplexes.asObservable();
-  public apartmentComplexes : ApartmentComplex[] = [];
+  public apartmentComplexes: ApartmentComplex[] = [];
 
-  constructor(httpClient : HttpClient) {
+  constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
     this._apartmentComplexes.next(Object.assign([], this._apartmentComplexes));
 
@@ -23,33 +23,30 @@ export class ApartmentComplexService {
       this.apartmentComplexes = resp;
       this._apartmentComplexes.next(Object.assign([], this.apartmentComplexes));
     })
-    
   }
 
-  // public getApartmentComplexes() : Observable<ApartmentComplex[]> {
-  //   return this.httpClient.get<ApartmentComplex[]>(this.baseUrl);
-  // }
+ 
 
-  public getApartmentComplex(id : number) : Observable<ApartmentComplex> {
+  public getApartmentComplex(id: number): Observable<ApartmentComplex> {
     return this.httpClient.get<ApartmentComplex>(this.baseUrl + id);
   }
 
-  public createApartmentComplex(formValues : string) : void {
+  public createApartmentComplex(formValues: string): void {
     this.httpClient.post<ApartmentComplex>(this.baseUrl, formValues).subscribe({
-      next : data => {
+      next: data => {
         console.log(data);
         this.apartmentComplexes.push(data);
         this._apartmentComplexes.next(Object.assign([], this.apartmentComplexes));
       },
-      error : error => {
+      error: error => {
         console.error(error);
       }
     })
   }
 
-  public updateApartmentComplex(id : number, formValues : string) : void {
+  public updateApartmentComplex(id: number, formValues: string): void {
     this.httpClient.put<ApartmentComplex>(this.baseUrl + id, formValues).subscribe({
-      next : data => {
+      next: data => {
         console.log(data);
 
         this.httpClient.get<ApartmentComplex[]>(this.baseUrl).subscribe(resp => {
@@ -59,13 +56,13 @@ export class ApartmentComplexService {
         })
         
       },
-      error : error => {
+      error: error => {
         console.error(error);
       }
     })
   }
 
-  public deleteApartmentComplex(id : number) : void {
+  public deleteApartmentComplex(id: number): void {
     this.httpClient.delete<void>(this.baseUrl + id).subscribe();
     this.apartmentComplexes.forEach((t, i) => {
       if (t.id === id) {
@@ -75,4 +72,20 @@ export class ApartmentComplexService {
     this._apartmentComplexes.next(Object.assign([], this.apartmentComplexes));
     console.log(this.apartmentComplexes);
   }
+
+  public addApartment(id: number, formValues: string): ApartmentComplex {
+    let apartmentComplex = new ApartmentComplex(0, '', '', '', []);
+    this.httpClient.post<ApartmentComplex>(this.baseUrl + id, formValues).subscribe(resp => {
+      console.log(resp);
+      apartmentComplex = resp;
+    });
+    return apartmentComplex;
+  }
+
+  public deleteApartment(apartmentComplexId: number, apartmentId: number): void {
+    this.httpClient.delete<void>(this.baseUrl + `${apartmentComplexId}/apartments/${apartmentId}`).subscribe();
+  }
 }
+
+
+

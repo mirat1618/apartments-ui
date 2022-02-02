@@ -1,13 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { identifierName } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApartmentComplex } from '../model/ApartmentComplex';
-import { MatTableModule } from '@angular/material/table';
 import { ApartmentComplexService } from 'src/app/service/apartment-complex.service';
 import { NewApartmentFormComponent } from '../../apartment/form/new/new-apartment-form/new-apartment-form.component';
 import { MatDialog } from '@angular/material/dialog';
-import { disableDebugTools } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-apartment-complex',
@@ -15,14 +12,18 @@ import { disableDebugTools } from '@angular/platform-browser';
   styleUrls: ['./apartment-complex.component.css']
 })
 export class ApartmentComplexComponent implements OnInit {
-  public apartmentComplex : ApartmentComplex;
-  public isLoaded : boolean = false;
-  private route : ActivatedRoute;
-  private router : Router;
-  private apartmentComplexService : ApartmentComplexService;
-  public dialog : MatDialog;
+  public apartmentComplex: ApartmentComplex;
 
-  constructor(route : ActivatedRoute, router : Router, apartmentComplexService : ApartmentComplexService, dialog : MatDialog) { 
+  public isLoaded: boolean = false;
+  private route: ActivatedRoute;
+  private router: Router;
+  private apartmentComplexService: ApartmentComplexService;
+  public dialog: MatDialog;
+
+  public updatedApartmentComplex: ApartmentComplex = new ApartmentComplex(0, '', '', '', []);
+
+
+  constructor(route: ActivatedRoute, router: Router, apartmentComplexService: ApartmentComplexService, dialog: MatDialog) { 
     this.route = route;
     this.apartmentComplex = new ApartmentComplex(0, '', '', '',[]);
     this.router = router;
@@ -32,6 +33,7 @@ export class ApartmentComplexComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoaded = false;
+
     this.route.params.subscribe(params => {
       this.apartmentComplexService.getApartmentComplex(params['id']).subscribe(data => {
         this.apartmentComplex = data;
@@ -40,17 +42,17 @@ export class ApartmentComplexComponent implements OnInit {
     });
   }
 
-  public goBack() : void {
+  public goBack(): void {
     this.router.navigate(['/apartment-complexes']);
   }
 
-  public addNewApartment(apartmentComplexId : number) : void {
+  public addNewApartment(apartmentComplexId: number): void {
     const dialogRef = this.dialog.open(NewApartmentFormComponent, {
-      data : { apartmentComplexId : apartmentComplexId }
+      data: { apartmentComplexId: apartmentComplexId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log(`Dialog response: ${result}`);
       this.ngOnInit();
     });
   }

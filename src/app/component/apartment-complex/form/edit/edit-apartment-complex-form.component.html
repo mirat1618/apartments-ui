@@ -1,11 +1,5 @@
-<!-- <p>edit-apartment-complex-form works!</p> -->
-
 <h1 mat-dialog-title>Редактировать жилой комплекс</h1>
 
-<!-- {{data.apartmentComplex.id}}
-{{data.apartmentComplex.title}}
-{{data.apartmentComplex.address}} --> 
- 
 <form [formGroup]="apartmentComplexForm" (ngSubmit)="onSubmit()">
     <div mat-dialog-content>
 
@@ -33,9 +27,6 @@
                 <input matInput formControlName="imageUrl" [readonly]="true">
             </mat-form-field>
         </p>
-
-        
-        
     </div>
     <div mat-dialog-actions align="end">
         <button mat-button [mat-dialog-close]="true">Закрыть</button>

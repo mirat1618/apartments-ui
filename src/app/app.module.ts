@@ -17,6 +17,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApartmentComplexComponent } from './component/apartment-complex/item/apartment-complex.component';
@@ -25,6 +26,7 @@ import { NewApartmentComplexFormComponent } from './component/apartment-complex/
 import { ApartmentComplexService } from './service/apartment-complex.service';
 import { EditApartmentComplexFormComponent } from './component/apartment-complex/form/edit//edit-apartment-complex-form.component';
 import { NewApartmentFormComponent } from './component/apartment/form/new/new-apartment-form/new-apartment-form.component';
+import { EditApartmentFormComponent } from './component/apartment/form/edit/edit-apartment-form/edit-apartment-form.component';
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import { NewApartmentFormComponent } from './component/apartment/form/new/new-ap
     NewApartmentComplexFormComponent,
     EditApartmentComplexFormComponent,
     NewApartmentFormComponent,
+    EditApartmentFormComponent,
     
   ],
   imports: [
@@ -54,6 +57,7 @@ import { NewApartmentFormComponent } from './component/apartment/form/new/new-ap
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatSelectModule,
    
 
 
