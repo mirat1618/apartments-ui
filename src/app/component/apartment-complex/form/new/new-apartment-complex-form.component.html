@@ -6,7 +6,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Название</mat-label>
                 <input #titleField matInput formControlName="title" (keyup)="trimSpaces($event)">
-                <mat-error *ngIf="apartmentComplexForm.controls['title'].invalid">5 символов минимум, буквы</mat-error>
+                <mat-error *ngIf="apartmentComplexForm.controls['title'].invalid">5 символов минимум</mat-error>
             </mat-form-field>
         </p>
         

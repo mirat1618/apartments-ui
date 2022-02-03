@@ -21,11 +21,7 @@ export class ApartmentComplexComponent implements OnInit {
   private apartmentComplexService: ApartmentComplexService;
   public dialog: MatDialog;
 
- 
-
-
   public apartmentComplex$: Observable<ApartmentComplex> = new Observable<ApartmentComplex>();
-
 
   constructor(route: ActivatedRoute, router: Router, apartmentComplexService: ApartmentComplexService, dialog: MatDialog) { 
     this.route = route;
@@ -38,18 +34,10 @@ export class ApartmentComplexComponent implements OnInit {
   ngOnInit(): void {
     this.isLoaded = false;
 
-    // this.route.params.subscribe(params => {
-    //   this.apartmentComplexService.getApartmentComplex(params['id']).subscribe(data => {
-    //     this.apartmentComplex = data;
-    //     this.isLoaded = true;
-    //   })
-    // });
-
     this.route.params.subscribe(params => {
       this.apartmentComplexService.setApartmentComplexObservable(params['id']);
     });
 
-    
     this.apartmentComplexService.apartmentComplex$.subscribe(resp => {
       this.apartmentComplex = resp;
       this.isLoaded = true;
@@ -67,12 +55,6 @@ export class ApartmentComplexComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog response: ${result}`);
-      // this.ngOnInit();
     });
   }
-
-  public refresh() {
-
-  }
-
 }

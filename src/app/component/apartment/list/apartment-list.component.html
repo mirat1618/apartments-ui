@@ -1,5 +1,5 @@
 <div class="content-table">
-  <div *ngIf = "noApartments; else apartmentsTable">
+  <div *ngIf = "this.apartments.length == 0; else apartmentsTable">
       <h2>У данного жилого комплекса нет квартир для аренды</h2>
   </div>
 

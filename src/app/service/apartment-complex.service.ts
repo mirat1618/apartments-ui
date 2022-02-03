@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApartmentComplex } from 'src/app/component/apartment-complex/model/ApartmentComplex';
+import { Apartment } from '../component/apartment/model/Apartment';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -10,6 +11,7 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 export class ApartmentComplexService {
   private httpClient: HttpClient;
   private baseUrl: string = 'http://apartments-backend-api.herokuapp.com/apartment-complexes/';
+  private apartmentsBaseUrl: string = 'http://apartments-backend-api.herokuapp.com/apartments/';
   
   private _apartmentComplexes = new BehaviorSubject<ApartmentComplex[]>([]);
   public apartmentComplexes$ = this._apartmentComplexes.asObservable();
@@ -18,7 +20,6 @@ export class ApartmentComplexService {
   private _apartmentComplex = new Subject<ApartmentComplex>();
   public apartmentComplex$ = this._apartmentComplex.asObservable();
   public apartmentComplex : ApartmentComplex = new ApartmentComplex(0, '', '', '', []);
-
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
@@ -98,6 +99,20 @@ export class ApartmentComplexService {
     this.apartmentComplex.apartments = this.apartmentComplex.apartments.filter(apartment => apartment.id != apartmentId);
     this._apartmentComplex.next(this.apartmentComplex);
   }
+
+  public updateApartment(apartmentId: number, formValues: string): void {
+    this.httpClient.put<Apartment>(this.apartmentsBaseUrl + apartmentId, formValues).subscribe({
+      next: data => {
+        console.log(data);
+        this.getApartmentComplex(this.apartmentComplex.id).subscribe(resp => {
+          this._apartmentComplex.next(resp);
+        })
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+   }
 }
 
 

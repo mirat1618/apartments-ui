@@ -15,10 +15,9 @@ import { Observable } from 'rxjs';
 export class ApartmentComplexListComponent implements OnInit {
   public dialog: MatDialog;
   private router: Router;
-  public isLoaded: boolean = false;
   private apartmentComplexService: ApartmentComplexService;
-  
   public apartmentComplexes$: Observable<ApartmentComplex[]> = new Observable<ApartmentComplex[]>();
+  public apartmentComplexes: ApartmentComplex[] = [];
 
   constructor(router: Router, dialog: MatDialog, apartmentComplexService: ApartmentComplexService) {
     this.router = router;
@@ -28,7 +27,10 @@ export class ApartmentComplexListComponent implements OnInit {
  
   ngOnInit(): void {
     this.apartmentComplexes$ = this.apartmentComplexService.apartmentComplexes$;
-    this.isLoaded = true;
+    
+    this.apartmentComplexes$.subscribe(resp => {
+      this.apartmentComplexes = resp;      
+    });
   }
 
   public viewApartmentComplex(id: number): void {

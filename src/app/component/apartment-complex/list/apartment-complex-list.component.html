@@ -1,4 +1,4 @@
-<div *ngIf="!isLoaded" class="content-container">
+<div *ngIf="this.apartmentComplexes.length == 0" class="content-container">
     <mat-spinner></mat-spinner>
     <mat-card class="mat-h1">
             Первоначальная загрузка может занять время, так как Heroku при долгом отсутствии запросов переводит сервис API в сон
@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-container">
-    <div *ngIf="isLoaded">
+    <div *ngIf="this.apartmentComplexes.length > 0">
         <mat-card  *ngFor="let apartmentComplex of (apartmentComplexes$ | async)">      
             <mat-card-header>
                 <img mat-card-avatar src="{{apartmentComplex.imageUrl}}"/>

@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApartmentService } from 'src/app/service/apartment.service';
 import { Apartment } from '../../../model/Apartment';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApartmentComplex } from 'src/app/component/apartment-complex/model/ApartmentComplex';
@@ -14,23 +13,18 @@ import { ApartmentComplexService } from 'src/app/service/apartment-complex.servi
 export class EditApartmentFormComponent implements OnInit {
   private formBuilder: FormBuilder;
   public apartmentForm: FormGroup;
-  private apartmentService: ApartmentService;
   private apartmentComplexService: ApartmentComplexService;
   public apartmentId: number;
   public apartmentComplexId: number;
   public apartmentComplexes: ApartmentComplex[] = [];
  
-  constructor(@Inject(MAT_DIALOG_DATA) data: {apartment: Apartment}, formBuilder: FormBuilder, apartmentService: ApartmentService, apartmentComplexService: ApartmentComplexService) { 
+  constructor(@Inject(MAT_DIALOG_DATA) data: {apartment: Apartment}, formBuilder: FormBuilder, apartmentComplexService: ApartmentComplexService) { 
     this.formBuilder = formBuilder;
-    this.apartmentService = apartmentService;
     this.apartmentComplexService = apartmentComplexService;
-
-
     this.apartmentId = data.apartment.id;
     this.apartmentComplexId = data.apartment.apartmentComplex;
     this.apartmentComplexes = this.apartmentComplexService.apartmentComplexes;
     
-
     this.apartmentForm = this.formBuilder.group({
       number: [data.apartment.number, [Validators.required, Validators.min(1), Validators.pattern('\\d+')]],
       floor: [data.apartment.floor, [Validators.required, Validators.pattern('-*\\d+')]],
@@ -49,7 +43,7 @@ export class EditApartmentFormComponent implements OnInit {
 
   public onSubmit(): void {
     let formValues: string = this.apartmentForm.value;
-    this.apartmentService.updateApartment(this.apartmentId, formValues);
+    this.apartmentComplexService.updateApartment(this.apartmentId, formValues);
     console.log(formValues);
   }
 

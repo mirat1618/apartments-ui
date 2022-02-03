@@ -60,13 +60,8 @@ import { EditApartmentFormComponent } from './component/apartment/form/edit/edit
     MatSelectModule,
    
 
-
-
     HttpClientModule,
     ReactiveFormsModule,
-
-
-
   ],
   providers: [ApartmentComplexService],
   bootstrap: [AppComponent]
