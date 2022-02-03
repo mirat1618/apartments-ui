@@ -10,8 +10,8 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 
 export class ApartmentComplexService {
   private httpClient: HttpClient;
-  private baseUrl: string = 'http://apartments-backend-api.herokuapp.com/apartment-complexes/';
-  private apartmentsBaseUrl: string = 'http://apartments-backend-api.herokuapp.com/apartments/';
+  private baseUrl: string = 'https://apartments-backend-api.herokuapp.com/apartment-complexes/';
+  private apartmentsBaseUrl: string = 'https://apartments-backend-api.herokuapp.com/apartments/';
   
   private _apartmentComplexes = new BehaviorSubject<ApartmentComplex[]>([]);
   public apartmentComplexes$ = this._apartmentComplexes.asObservable();
