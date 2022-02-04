@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApartmentComplexListComponent } from './component/apartment-complex/list/apartment-complex-list.component';
-import { ApartmentComponent } from './component/apartment/item/apartment.component';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,7 +32,6 @@ import { EditApartmentFormComponent } from './component/apartment/form/edit/edit
   declarations: [
     AppComponent,
     ApartmentComplexListComponent,
-    ApartmentComponent,
     ApartmentComplexComponent,
     ApartmentListComponent,
     NewApartmentComplexFormComponent,
