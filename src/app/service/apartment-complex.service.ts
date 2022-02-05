@@ -86,7 +86,7 @@ export class ApartmentComplexService {
   }
 
   public addApartment(id: number, formValues: string): void {  
-    this.httpClient.post<ApartmentComplex>(`${this.baseUrl}/${id}/apartments/`, formValues).subscribe(resp => {
+    this.httpClient.post<ApartmentComplex>(this.baseUrl + `${id}/apartments/`, formValues).subscribe(resp => {
       this.apartmentComplex = resp;
       this._apartmentComplex.next(this.apartmentComplex);
       console.log(resp);
