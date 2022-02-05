@@ -24,7 +24,7 @@ export class ApartmentComplexService {
     this.httpClient = httpClient;
     this._apartmentComplexes.next(Object.assign([], this._apartmentComplexes));
 
-    this.httpClient.get<ApartmentComplex[]>(this.baseUrl).subscribe(resp => {
+    this.httpClient.get<ApartmentComplex[]>(`${this.baseUrl}/apartment-complexes/`).subscribe(resp => {
       this.apartmentComplexes = resp;
       this._apartmentComplexes.next(Object.assign([], this.apartmentComplexes));
     })
