@@ -60,7 +60,7 @@ export class ApartmentComplexService {
       next: data => {
         console.log(data);
 
-        this.httpClient.get<ApartmentComplex[]>(this.baseUrl).subscribe(resp => {
+        this.httpClient.get<ApartmentComplex[]>(`${this.baseUrl}/apartment-complexes/`).subscribe(resp => {
           this.apartmentComplexes = resp;
           this._apartmentComplexes.next(Object.assign([], this.apartmentComplexes));
           console.log(this.apartmentComplexes);
