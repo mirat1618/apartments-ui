@@ -10,8 +10,7 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 
 export class ApartmentComplexService {
   private httpClient: HttpClient;
-  private baseUrl: string = 'https://apartments-backend-api.herokuapp.com/apartment-complexes/';
-  private apartmentsBaseUrl: string = 'https://apartments-backend-api.herokuapp.com/apartments/';
+  private baseUrl: string = 'https://apartments-backend-api.herokuapp.com';
   
   private _apartmentComplexes = new BehaviorSubject<ApartmentComplex[]>([]);
   public apartmentComplexes$ = this._apartmentComplexes.asObservable();
@@ -32,11 +31,11 @@ export class ApartmentComplexService {
   }
 
   public getApartmentComplex(id: number): Observable<ApartmentComplex> {
-    return this.httpClient.get<ApartmentComplex>(this.baseUrl + id);
+    return this.httpClient.get<ApartmentComplex>(`${this.baseUrl}/apartment-complexes/${id}`);
   }
 
   public setApartmentComplexObservable(id: number): Observable<ApartmentComplex> {
-    this.httpClient.get<ApartmentComplex>(this.baseUrl + id).subscribe(resp => {
+    this.httpClient.get<ApartmentComplex>(`${this.baseUrl}/apartment-complexes/${id}`).subscribe(resp => {
       this.apartmentComplex = resp;
       this._apartmentComplex.next(this.apartmentComplex);
     });
@@ -44,7 +43,7 @@ export class ApartmentComplexService {
   }
 
   public createApartmentComplex(formValues: string): void {
-    this.httpClient.post<ApartmentComplex>(this.baseUrl, formValues).subscribe({
+    this.httpClient.post<ApartmentComplex>(`${this.baseUrl}/apartment-complexes/`, formValues).subscribe({
       next: data => {
         console.log(data);
         this.apartmentComplexes.push(data);
@@ -57,7 +56,7 @@ export class ApartmentComplexService {
   }
 
   public updateApartmentComplex(id: number, formValues: string): void {
-    this.httpClient.put<ApartmentComplex>(this.baseUrl + id, formValues).subscribe({
+    this.httpClient.put<ApartmentComplex>(`${this.baseUrl}/apartment-complexes/${id}`, formValues).subscribe({
       next: data => {
         console.log(data);
 
@@ -75,7 +74,7 @@ export class ApartmentComplexService {
   }
 
   public deleteApartmentComplex(id: number): void {
-    this.httpClient.delete<void>(this.baseUrl + id).subscribe();
+    this.httpClient.delete<void>(`${this.baseUrl}/apartment-complexes/${id}`).subscribe();
     this.apartmentComplexes.forEach((t, i) => {
       if (t.id === id) {
         this.apartmentComplexes.splice(i, 1);
@@ -86,7 +85,7 @@ export class ApartmentComplexService {
   }
 
   public addApartment(id: number, formValues: string): void {  
-    this.httpClient.post<ApartmentComplex>(this.baseUrl + `${id}/apartments/`, formValues).subscribe(resp => {
+    this.httpClient.post<ApartmentComplex>(`${this.baseUrl}/apartment-complexes/${id}/apartments/`, formValues).subscribe(resp => {
       this.apartmentComplex = resp;
       this._apartmentComplex.next(this.apartmentComplex);
       console.log(resp);
@@ -94,14 +93,14 @@ export class ApartmentComplexService {
   }
 
   public deleteApartment(apartmentComplexId: number, apartmentId: number): void {
-    this.httpClient.delete<void>(this.baseUrl + `${apartmentComplexId}/apartments/${apartmentId}`).subscribe();
+    this.httpClient.delete<void>(`${this.baseUrl}/apartment-complexes/${apartmentComplexId}/apartments/${apartmentId}`).subscribe();
     console.log(apartmentId);
     this.apartmentComplex.apartments = this.apartmentComplex.apartments.filter(apartment => apartment.id != apartmentId);
     this._apartmentComplex.next(this.apartmentComplex);
   }
 
   public updateApartment(apartmentId: number, formValues: string): void {
-    this.httpClient.put<Apartment>(this.apartmentsBaseUrl + apartmentId, formValues).subscribe({
+    this.httpClient.put<Apartment>(`${this.baseUrl}/apartments/${apartmentId}`, formValues).subscribe({
       next: data => {
         console.log(data);
         this.getApartmentComplex(this.apartmentComplex.id).subscribe(resp => {
