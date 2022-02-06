@@ -26,7 +26,7 @@ export class NewApartmentFormComponent implements OnInit {
       numberOfBedrooms: ['', [Validators.required, Validators.min(0), Validators.pattern('\\d+')]],
       squareMeters: ['', [Validators.required, Validators.min(0), Validators.pattern('\\d+(\\.?\\d+)*')]],
       hasWashingMachine: [true],
-      hasDiswasher: [false],
+      hasDishwasher: [false],
       rentPrice: ['', [Validators.required, Validators.min(0), Validators.pattern('\\d+(\\.?\\d+)*')]],
     })
    }
